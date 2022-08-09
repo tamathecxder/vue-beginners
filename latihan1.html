@@ -20,8 +20,8 @@
       <header>
         <img src="image/vue.png" alt="logo" width="80" />
         <!-- Interpolation -->
-        <h1 v-once>{{ name + ' and also Nuxt.js' }}</h1> 
-        <p>The Progressive JavaScript Framework</p>
+        <h1 v-once>{{ name.toUpperCase() }}</h1> 
+        <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
       </header>
 
       <footer id="footer">
@@ -35,7 +35,8 @@
     <script> 
       const lotOfData = {
         name: "I Love Vue!",
-        message: "Hello, JavaScript Framework.",
+        message: "Hello, JavaScript Framework",
+        isGood: true
       };
 
       const vm = new Vue({
