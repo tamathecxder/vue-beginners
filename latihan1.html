@@ -21,6 +21,10 @@
         <!-- Interpolation -->
         <h1>{{ getFullName }}</h1>
         <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
+        <div>
+          <h2>"{{ number }}"</h2>
+          <p>Angka tersebut termasuk bilangan <span style="text-decoration: underline">{{ printEvenOrOdd }}</span></p>
+        </div>
       </header>
 
       <footer id="footer">
@@ -42,6 +46,7 @@
           message: "Hello, JavaScript Framework",
           isGood: true,
           qty: 1,
+          number: 2,
         },
         methods: {
           changeTitleWithParams: function (title) {
@@ -55,7 +60,10 @@
           getFullName: function () {
             return this.firstName + " " + this.lastName;
           },
-        }
+          printEvenOrOdd: function () {
+            return this.number % 2 === 0 ? `GENAP` : `GANJIL`;
+          },
+        },
       });
     </script>
   </body>
