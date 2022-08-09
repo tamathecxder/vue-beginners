@@ -32,6 +32,9 @@
           
           <!-- v-html as innerHTML -->
           <strong v-text="vueTextContent"></strong>
+
+          <!-- directive seperti contohnya v-text juga bisa menyimpan expression atau statement didalamnya  -->
+          <div style="font-style: italic;" v-text="isGood ? 'Aku sangat suka directive' : 'Cih, merepotkan sekali fitur directive ini!' "></div>
         </div>
       </header>
 
