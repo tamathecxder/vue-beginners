@@ -53,12 +53,12 @@
         <img src="image/vue.png" alt="logo" width="80" />
         <nav>
           <ul>
-            <li><button class="active">Home</button></li>
-            <li><button>Services</button></li>
-            <li><button>About Me</button></li>
+            <li><button v-bind:class="{ active: menu === 'home' }" @click="handleClickMenu('home')">Home</button></li>
+            <li><button v-bind:class="{ active: menu === 'services' }" @click="handleClickMenu('services')">Services</button></li>
+            <li><button v-bind:class="{ active: menu === 'about' }" @click="handleClickMenu('about')">About Me</button></li>
           </ul>
         </nav>
-        
+
         <!-- Interpolation -->
         <h1>{{ getFullName }}</h1>
 
@@ -108,10 +108,11 @@
           isGood: true,
           qty: 1,
           number: 2,
-          counter: 0,  
+          counter: 0,
           vueHTMLContent: '<span style="font-weight: bold; display: block;">Directives v-html</span>',
           vueTextContent: "Directives v-text",
           image: "image/vuejs-vector.png",
+          menu: "home",
         },
         methods: {
           changeTitleWithParams: function (title) {
@@ -119,8 +120,11 @@
           },
           handleClick: function () {
             this.counter++;
-            this.image = 'image/reactjs-vector.jpg';
-          }
+            this.image = "image/reactjs-vector.jpg";
+          },
+          handleClickMenu: function (menu) {
+            this.menu = menu;
+          },
         },
         computed: {
           totalPayment: function () {
