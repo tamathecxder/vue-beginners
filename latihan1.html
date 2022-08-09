@@ -20,7 +20,8 @@
       <header>
         <img src="image/vue.png" alt="logo" width="80" />
         <!-- Interpolation -->
-        <h1 v-once>{{ name.toUpperCase() }}</h1> 
+        <h1 v-once>{{ title.toUpperCase() }}</h1> 
+        <span style="font-weight: bold;">{{ greetings() }}</span>
         <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
       </header>
 
@@ -34,14 +35,20 @@
 
     <script> 
       const lotOfData = {
-        name: "I Love Vue!",
+        title: "I Love Vue!",
+        name: "Asep Susanto",
         message: "Hello, JavaScript Framework",
         isGood: true
       };
 
       const vm = new Vue({
         el: "#app",
-        data: lotOfData // datatype: string | boolean | array | object
+        data: lotOfData, // datatype: string | boolean | array | object
+        methods: {
+          greetings: function() {
+            return `Hello, ${this.name}`;
+          }
+        }
       });
     </script>
   </body>
