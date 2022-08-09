@@ -25,6 +25,14 @@
           <h2>"{{ number }}"</h2>
           <p>Angka tersebut termasuk bilangan <span style="text-decoration: underline">{{ printEvenOrOdd }}</span></p>
         </div>
+        <!-- Directives -->
+        <div>
+          <!-- v-text as innerText -->
+          <a href="#" v-html="vueHTMLContent"></a>
+          
+          <!-- v-html as innerHTML -->
+          <strong v-text="vueTextContent"></strong>
+        </div>
       </header>
 
       <footer id="footer">
@@ -47,6 +55,8 @@
           isGood: true,
           qty: 1,
           number: 2,
+          vueHTMLContent: '<span style="font-weight: bold; display: block;">Directives v-html</span>',
+          vueTextContent: 'Directives v-text'
         },
         methods: {
           changeTitleWithParams: function (title) {
