@@ -11,6 +11,39 @@
         margin: 5%;
         font-family: "Quicksand", sans-serif;
       }
+
+      nav {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 20px;
+      }
+
+      nav ul li {
+        margin-right: 20px;
+      }
+
+      nav ul li button {
+        border: none;
+        background: none;
+        font-size: 1em;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.8);
+        cursor: pointer;
+      }
+
+      .active {
+        border-bottom: 3px solid rgba(0, 0, 0, 0.6);
+      }
     </style>
   </head>
   <body>
@@ -18,6 +51,14 @@
     <div id="app">
       <header>
         <img src="image/vue.png" alt="logo" width="80" />
+        <nav>
+          <ul>
+            <li><button class="active">Home</button></li>
+            <li><button>Services</button></li>
+            <li><button>About Me</button></li>
+          </ul>
+        </nav>
+        
         <!-- Interpolation -->
         <h1>{{ getFullName }}</h1>
 
@@ -61,13 +102,13 @@
         // datatype: string | boolean | array | object
         data: {
           title: "I Love Vue!",
-          firstName: "Gilang",
-          lastName: "Atmaja",
+          firstName: "Vue",
+          lastName: "Framework",
           message: "Hello, JavaScript Framework",
           isGood: true,
           qty: 1,
           number: 2,
-          counter: 0,
+          counter: 0,  
           vueHTMLContent: '<span style="font-weight: bold; display: block;">Directives v-html</span>',
           vueTextContent: "Directives v-text",
           image: "image/vuejs-vector.png",
