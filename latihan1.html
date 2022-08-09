@@ -14,11 +14,13 @@
     </style>
   </head>
   <body>
+    
     <!-- Root component -->
     <div id="app">
       <header>
         <img src="image/vue.png" alt="logo" width="80" />
-        <h1>What is Vue.js</h1>
+        <!-- Interpolation -->
+        <h1 v-once>{{ name + ' and also Nuxt.js' }}</h1> 
         <p>The Progressive JavaScript Framework</p>
       </header>
 
@@ -30,7 +32,7 @@
     <!-- Vue.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
 
-    <script>
+    <script> 
       const lotOfData = {
         name: "I Love Vue!",
         message: "Hello, JavaScript Framework.",
