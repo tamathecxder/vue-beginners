@@ -19,8 +19,7 @@
       <header>
         <img src="image/vue.png" alt="logo" width="80" />
         <!-- Interpolation -->
-        <h1>{{ title.toUpperCase() }}</h1>
-        <span style="font-weight: bold">{{ greetings() }}</span>
+        <h1>{{ getFullName }}</h1>
         <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
       </header>
 
@@ -38,26 +37,23 @@
         // datatype: string | boolean | array | object
         data: {
           title: "I Love Vue!",
-          name: "Asep Susanto",
+          firstName: "Gilang",
+          lastName: "Atmaja",
           message: "Hello, JavaScript Framework",
           isGood: true,
           qty: 1,
         },
         methods: {
-          greetings: function () {
-            return `Hello, ${this.name}`; // keyword this mereferens ke data yang ada di dalam object Vue
-          },
           changeTitleWithParams: function (title) {
             this.title = title;
-          },
-          changeNameWithParams: function (name) {
-            this.name = name;
-            return this.greetings();
           },
         },
         computed: {
           totalPayment: function () {
             return this.qty * 10000;
+          },
+          getFullName: function () {
+            return this.firstName + " " + this.lastName;
           },
         }
       });
