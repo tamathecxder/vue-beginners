@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue Beginners</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" referrerpolicy="stylesheet">
-  <style>
-    body {
-      margin: 5%;
-      font-family: 'Quicksand', sans-serif;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Beginners</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" referrerpolicy="stylesheet" />
+    <style>
+      body {
+        margin: 5%;
+        font-family: "Quicksand", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Root component -->
+    <div id="app">
+      <header>
+        <img src="image/vue.png" alt="logo" width="80" />
+        <h1>What is Vue.js</h1>
+        <p>The Progressive JavaScript Framework</p>
+      </header>
 
-  <!-- Root component -->
-  <div id="app">
-    <header>
-      <img src="image/vue.png" alt="logo" width="80">
-      <h1>What is Vue.js</h1>
-      <p>The Progressive JavaScript Framework</p>
-    </header>
-  
-    <footer id="footer">
-      <p>Copyright &copy; 2022</p>
-    </footer>
-  </div>
+      <footer id="footer">
+        <p>Copyright &copy; 2022</p>
+      </footer>
+    </div>
 
-  <!-- Vue.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
-  
-  <script>
-    const vm = new Vue({
-      el: '#app',
-      data: {
-        // datatype: string | boolean | array | object
+    <!-- Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+
+    <script>
+      const lotOfData = {
         name: "I Love Vue!",
         message: "Hello, JavaScript Framework.",
-      }
-    });
-  </script>
-  
-</body>
+      };
+
+      const vm = new Vue({
+        el: "#app",
+        data: lotOfData // datatype: string | boolean | array | object
+      });
+    </script>
+  </body>
 </html>
