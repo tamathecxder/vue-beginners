@@ -21,8 +21,8 @@
         <!-- Interpolation -->
         <h1>{{ getFullName }}</h1>
 
-        <img :src="image" alt="vuejs-vector" width="500">
-        
+        <img :src="image" alt="vuejs-vector" width="500" />
+
         <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
         <div>
           <h2>"{{ number }}"</h2>
@@ -32,12 +32,18 @@
         <div>
           <!-- v-text as innerText -->
           <a href="#" v-html="vueHTMLContent"></a>
-          
+
           <!-- v-html as innerHTML -->
           <strong v-text="vueTextContent"></strong>
 
           <!-- directive seperti contohnya v-text juga bisa menyimpan expression atau statement didalamnya  -->
-          <div style="font-style: italic;" v-text="isGood ? 'Aku sangat suka directive' : 'Cih, merepotkan sekali fitur directive ini!' "></div>
+          <div style="font-style: italic" v-text="isGood ? 'Aku sangat suka directive' : 'Cih, merepotkan sekali fitur directive ini!' "></div>
+        </div>
+
+        <!-- Event -->
+        <div style="margin: 40px 0">
+          <h1 v-text="counter"></h1>
+          <button @click="handleClick">Click Me</button>
         </div>
       </header>
 
@@ -61,14 +67,19 @@
           isGood: true,
           qty: 1,
           number: 2,
+          counter: 0,
           vueHTMLContent: '<span style="font-weight: bold; display: block;">Directives v-html</span>',
-          vueTextContent: 'Directives v-text',
-          image: 'image/vuejs-vector.png'
+          vueTextContent: "Directives v-text",
+          image: "image/vuejs-vector.png",
         },
         methods: {
           changeTitleWithParams: function (title) {
             this.title = title;
           },
+          handleClick: function () {
+            this.counter++;
+            this.image = 'image/reactjs-vector.jpg';
+          }
         },
         computed: {
           totalPayment: function () {
