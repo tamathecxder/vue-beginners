@@ -20,12 +20,12 @@
         <img src="image/vue.png" alt="logo" width="80" />
         <!-- Interpolation -->
         <h1>{{ title.toUpperCase() }}</h1>
-        <span v-once style="font-weight: bold">{{ greetings() }}</span>
+        <span style="font-weight: bold">{{ greetings() }}</span>
         <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
       </header>
 
       <footer id="footer">
-        <p>Copyright &copy; 2022</p>
+        <p v-once>Copyright &copy; 2022</p>
       </footer>
     </div>
 
@@ -41,6 +41,7 @@
           name: "Asep Susanto",
           message: "Hello, JavaScript Framework",
           isGood: true,
+          qty: 1,
         },
         methods: {
           greetings: function () {
@@ -49,7 +50,16 @@
           changeTitleWithParams: function (title) {
             this.title = title;
           },
+          changeNameWithParams: function (name) {
+            this.name = name;
+            return this.greetings();
+          },
         },
+        computed: {
+          totalPayment: function () {
+            return this.qty * 10000;
+          },
+        }
       });
     </script>
   </body>
