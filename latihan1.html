@@ -14,14 +14,13 @@
     </style>
   </head>
   <body>
-    
     <!-- Root component -->
     <div id="app">
       <header>
         <img src="image/vue.png" alt="logo" width="80" />
         <!-- Interpolation -->
-        <h1 v-once>{{ title.toUpperCase() }}</h1> 
-        <span style="font-weight: bold;">{{ greetings() }}</span>
+        <h1>{{ title.toUpperCase() }}</h1>
+        <span v-once style="font-weight: bold">{{ greetings() }}</span>
         <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
       </header>
 
@@ -33,22 +32,24 @@
     <!-- Vue.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
 
-    <script> 
-      const lotOfData = {
-        title: "I Love Vue!",
-        name: "Asep Susanto",
-        message: "Hello, JavaScript Framework",
-        isGood: true
-      };
-
+    <script>
       const vm = new Vue({
         el: "#app",
-        data: lotOfData, // datatype: string | boolean | array | object
+        // datatype: string | boolean | array | object
+        data: {
+          title: "I Love Vue!",
+          name: "Asep Susanto",
+          message: "Hello, JavaScript Framework",
+          isGood: true,
+        },
         methods: {
-          greetings: function() {
-            return `Hello, ${this.name}`;
-          }
-        }
+          greetings: function () {
+            return `Hello, ${this.name}`; // keyword this mereferens ke data yang ada di dalam object Vue
+          },
+          changeTitleWithParams: function (title) {
+            this.title = title;
+          },
+        },
       });
     </script>
   </body>
