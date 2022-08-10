@@ -79,8 +79,15 @@
           <input type="text" v-model="title">
           <hr style="margin: 20px 0; height: 2px; width: 50%; background-color: #000;">
 
+          <div>
+            <h3>Free Course</h3>
+            <h4>Your Course :
+              <span style="display: block; font-weight: normal; margin: 8px 0;">
+                {{ courseList }}
+              </span>
+            </h4>
+          </div>
           <div class="container">
-            <h3 style="margin: 0;">Free Course</h3>
             <label for="checkbox">
               <input type="checkbox" name="checkbox" id="checkbox" value="React.js" v-model="courseList"> 
               React.js
