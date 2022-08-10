@@ -44,6 +44,14 @@
       .active {
         border-bottom: 3px solid rgba(0, 0, 0, 0.6);
       }
+
+      .container {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+      }
     </style>
   </head>
   <body>
@@ -61,10 +69,34 @@
 
         <!-- Interpolation -->
         <h1>{{ getFullName }}</h1>
+        <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
 
         <img :src="image" alt="vuejs-vector" width="500" />
 
-        <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
+        <!-- Two way data binding -->
+        <div>
+          <h2>{{ title }}</h2>
+          <input type="text" v-model="title">
+          <hr style="margin: 20px 0; height: 2px; width: 50%; background-color: #000;">
+
+          <div class="container">
+            <h3 style="margin: 0;">Free Course</h3>
+            <label for="checkbox">
+              <input type="checkbox" name="checkbox" id="checkbox" value="React.js" v-model="courseList"> 
+              React.js
+            </label>
+            <label for="checkbox">
+              <input type="checkbox" name="checkbox" id="checkbox" value="Vue.js" v-model="courseList"> 
+              Vue.js
+            </label>
+            <label for="checkbox">
+              <input type="checkbox" name="checkbox" id="checkbox" value="Angular" v-model="courseList"> 
+              Angular
+            </label>
+          </div>
+        </div>
+
+        <!-- Computed -->
         <div>
           <h2>"{{ number }}"</h2>
           <p>Angka tersebut termasuk bilangan <span style="text-decoration: underline">{{ printEvenOrOdd }}</span></p>
@@ -113,6 +145,7 @@
           vueTextContent: "Directives v-text",
           image: "image/vuejs-vector.png",
           menu: "home",
+          courseList: []
         },
         methods: {
           changeTitleWithParams: function (title) {
