@@ -87,9 +87,11 @@
             </h4>
 
             <!-- v-for, v-if, v-else dan v-show (pengubahan display suatu element menjadi none) -->
-            <ul v-show="courseList.length > 1">
-              <li style="margin-bottom: 6px" v-for="(course, index) in courseList">{{ index + 1 }} - {{ course }}</li>
-            </ul>
+            <template v-if="courseList.length > 1">
+              <ul>
+                <li style="margin-bottom: 6px" v-for="(course, index) in courseList">{{ index + 1 }} - {{ course }}</li>
+              </ul>
+            </template>
             <li v-else>Mohon maaf saat ini kelas sedang tidak tersedia</li>
 
             <h3>Perulangan (1-5)</h3>
@@ -168,7 +170,7 @@
           vueTextContent: "Directives v-text",
           image: "image/vuejs-vector.png",
           menu: "home",
-          courseList: [],
+          courseList: ['Larevel', 'Deno', 'Nuxt JS'],
           iterableNumber: [1, 2, 3, 4, 5]
         },
         methods: {
