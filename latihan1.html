@@ -95,6 +95,12 @@
             <ul>
               <li v-for="i in 5">{{ i }}</li>
             </ul>
+
+            <!-- v-for practice -->
+            <h3>Mencari bilangan genap: {{ iterableNumber }}</h3>
+            <ul>
+              <li v-for="x in findEvenNumber(iterableNumber)">{{ x }}</li>
+            </ul>
           </div>
           <div class="container">
             <label for="checkbox">
@@ -162,6 +168,7 @@
           image: "image/vuejs-vector.png",
           menu: "home",
           courseList: ["Ruby", "Rust", "Node.js"],
+          iterableNumber: [1, 2, 3, 4, 5]
         },
         methods: {
           changeTitleWithParams: function (title) {
@@ -174,6 +181,11 @@
           handleClickMenu: function (menu) {
             this.menu = menu;
           },
+          findEvenNumber: function(args) {
+            return args.filter(x => {
+              return x % 2 === 0;
+            });
+          } 
         },
         computed: {
           totalPayment: function () {
