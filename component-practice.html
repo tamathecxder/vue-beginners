@@ -98,7 +98,7 @@
         position: static;
         bottom: 0;
         left: 0;
-        margin-top: 200px;
+        margin-top: 100px;
         background-color: rgba(0, 0, 0, 0.1);
       }
 
@@ -113,17 +113,8 @@
     <!-- Root component -->
     <div id="app">
       <div class="container">
-        <header>
-          <img src="image/vue.png" alt="logo" width="40" />
-          <nav>
-            <ul>
-              <li><a href="#" v-bind:class="{ active: menu === 'home' }" @click.prevent="handleClickMenu('home')">Home</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'services' }" @click.prevent="handleClickMenu('services')">Our Services</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'projects' }" @click.prevent="handleClickMenu('projects')">Projects</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'about' }" @click.prevent="handleClickMenu('about')">About Me</a></li>
-            </ul>
-          </nav>
-        </header>
+        <!-- Header will appear here as a component -->
+        <header-component></header-component>
   
         <main>
           <!-- Interpolation -->
@@ -134,19 +125,51 @@
         </main>
       </div>
       
-      <footer>
-        <p v-once>Copyright &copy; 2022 - Yudistira Eka Pratama</p>
-      </footer>
+      <!-- Footer will appear here as a component -->
+      <footer-component></footer-component>
     </div>
 
     <!-- Vue.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
 
     <script>
+      // Membuat component pada instance Vue
+      Vue.component('header-component', {
+        template: `
+        <header>
+          <img src="image/vue.png" alt="logo" width="40" />
+          <nav>
+            <ul>
+              <li><a href="#" v-bind:class="{ active: menu === 'home' }" @click.prevent="handleClickMenu('home')">Home</a></li>
+              <li><a href="#" v-bind:class="{ active: menu === 'services' }" @click.prevent="handleClickMenu('services')">Our Services</a></li>
+              <li><a href="#" v-bind:class="{ active: menu === 'projects' }" @click.prevent="handleClickMenu('projects')">Projects</a></li>
+              <li><a href="#" v-bind:class="{ active: menu === 'about' }" @click.prevent="handleClickMenu('about')">About Me</a></li>
+            </ul>
+          </nav>
+        </header>`,
+        data() {
+          return {
+            menu: 'home'
+          }
+        },
+      });
+
+      Vue.component('footer-component', {
+        template: `
+        <footer>
+          <p>Copyright &copy; 2022 - Yudistira Eka Pratama</p>
+        </footer>`,
+        data: function() {
+          return {
+            //
+          }
+        },
+      });
+      
       const vm = new Vue({
         el: "#app",
         data: {
-          firstName: "Vue",
+          firstName: "Vue.js",
           lastName: "Framework",
           isGood: true,
           image: "image/vuejs-vector.png",
