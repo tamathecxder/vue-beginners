@@ -62,9 +62,9 @@
         <img src="image/vue.png" alt="logo" width="80" />
         <nav>
           <ul>
-            <li><a href="#" v-bind:class="{ active: menu === 'home' }" @click="handleClickMenu('home', $event)">Home</a></li>
-            <li><a href="#" v-bind:class="{ active: menu === 'services' }" @click="handleClickMenu('services', $event)">Services</a></li>
-            <li><a href="#" v-bind:class="{ active: menu === 'about' }" @click="handleClickMenu('about', $event)">About Me</a></li>
+            <li><a href="#" v-bind:class="{ active: menu === 'home' }" @click.prevent="handleClickMenu('home')">Home</a></li>
+            <li><a href="#" v-bind:class="{ active: menu === 'services' }" @click.prevent="handleClickMenu('services')">Services</a></li>
+            <li><a href="#" v-bind:class="{ active: menu === 'about' }" @click.prevent="handleClickMenu('about')">About Me</a></li>
           </ul>
         </nav>
 
@@ -198,8 +198,7 @@
             this.counter++;
             this.image = "image/reactjs-vector.jpg";
           },
-          handleClickMenu: function (menu, event) {
-            event.preventDefault();
+          handleClickMenu: function (menu) {
             this.menu = menu;
           },
           findEvenNumber: function (args) {
