@@ -82,7 +82,7 @@
 
           <div>
             <h3>Free Course ({{ courseList.length }})</h3>
-            <input type="text" v-on:keyup.enter="handleSubmit">
+            <input type="text" v-on:keyup.enter="handleSubmit" v-model="newCourse">
             <h4>
               Your Course :
               <span style="display: block; font-weight: normal; margin: 8px 0"> {{ courseList }} </span>
@@ -184,6 +184,7 @@
           image: "image/vuejs-vector.png",
           menu: "home",
           courseList: ["Larevel", "Deno", "Nuxt JS"],
+          newCourse: "Hugo",
           iterableNumber: [1, 2, 3, 4, 5],
           posts: {
             title: "How to use Vue.js",
@@ -207,10 +208,10 @@
               return x % 2 === 0;
             });
           },
-          handleSubmit: function (event) {
-            let value = event.target.value;
-            console.log(value);
+          handleSubmit: function () {
+            let value = this.newCourse;
             this.courseList.unshift(value);
+            this.newCourse = '';
           }
         },
         computed: {
