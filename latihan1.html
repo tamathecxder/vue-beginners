@@ -80,16 +80,17 @@
           <hr style="margin: 20px 0; height: 2px; width: 50%; background-color: #000" />
 
           <div>
-            <h3>Free Course</h3>
+            <h3>Free Course ({{ courseList.length }})</h3>
             <h4>
               Your Course :
               <span style="display: block; font-weight: normal; margin: 8px 0"> {{ courseList }} </span>
             </h4>
 
-            <!-- v-for -->
-            <ul>
+            <!-- v-for, v-if, v-else dan v-show (pengubahan display suatu element menjadi none) -->
+            <ul v-show="courseList.length > 1">
               <li style="margin-bottom: 6px" v-for="(course, index) in courseList">{{ index + 1 }} - {{ course }}</li>
             </ul>
+            <li v-else>Mohon maaf saat ini kelas sedang tidak tersedia</li>
 
             <h3>Perulangan (1-5)</h3>
             <ul>
@@ -167,7 +168,7 @@
           vueTextContent: "Directives v-text",
           image: "image/vuejs-vector.png",
           menu: "home",
-          courseList: ["Ruby", "Rust", "Node.js"],
+          courseList: [],
           iterableNumber: [1, 2, 3, 4, 5]
         },
         methods: {
