@@ -76,28 +76,37 @@
         <!-- Two way data binding -->
         <div>
           <h2>{{ title }}</h2>
-          <input type="text" v-model="title">
-          <hr style="margin: 20px 0; height: 2px; width: 50%; background-color: #000;">
+          <input type="text" v-model="title" />
+          <hr style="margin: 20px 0; height: 2px; width: 50%; background-color: #000" />
 
           <div>
             <h3>Free Course</h3>
-            <h4>Your Course :
-              <span style="display: block; font-weight: normal; margin: 8px 0;">
-                {{ courseList }}
-              </span>
+            <h4>
+              Your Course :
+              <span style="display: block; font-weight: normal; margin: 8px 0"> {{ courseList }} </span>
             </h4>
+
+            <!-- v-for -->
+            <ul>
+              <li style="margin-bottom: 6px" v-for="(course, index) in courseList">{{ index + 1 }} - {{ course }}</li>
+            </ul>
+
+            <h3>Perulangan (1-5)</h3>
+            <ul>
+              <li v-for="i in 5">{{ i }}</li>
+            </ul>
           </div>
           <div class="container">
             <label for="checkbox">
-              <input type="checkbox" name="checkbox" id="checkbox" value="React.js" v-model="courseList"> 
+              <input type="checkbox" name="checkbox" id="checkbox" value="React.js" v-model="courseList" />
               React.js
             </label>
             <label for="checkbox">
-              <input type="checkbox" name="checkbox" id="checkbox" value="Vue.js" v-model="courseList"> 
+              <input type="checkbox" name="checkbox" id="checkbox" value="Vue.js" v-model="courseList" />
               Vue.js
             </label>
             <label for="checkbox">
-              <input type="checkbox" name="checkbox" id="checkbox" value="Angular" v-model="courseList"> 
+              <input type="checkbox" name="checkbox" id="checkbox" value="Angular" v-model="courseList" />
               Angular
             </label>
           </div>
@@ -152,7 +161,7 @@
           vueTextContent: "Directives v-text",
           image: "image/vuejs-vector.png",
           menu: "home",
-          courseList: []
+          courseList: ["Ruby", "Rust", "Node.js"],
         },
         methods: {
           changeTitleWithParams: function (title) {
