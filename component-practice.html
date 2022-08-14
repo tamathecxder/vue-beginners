@@ -33,7 +33,7 @@
         object-fit: cover;
         object-position: center;
       }
-      
+
       nav {
         width: 100%;
         display: flex;
@@ -41,7 +41,7 @@
         align-items: center;
         justify-content: center;
       }
-      
+
       nav ul {
         width: 100%;
         list-style: none;
@@ -55,7 +55,7 @@
       nav ul li {
         margin: 0;
       }
-      
+
       nav ul li a {
         text-decoration: none;
         border: none;
@@ -72,7 +72,7 @@
 
       .container {
         width: 1200px;
-        height: 100vh;
+        height: auto;
         margin: 20px 80px;
         position: relative;
       }
@@ -84,13 +84,20 @@
         justify-content: center;
         align-items: center;
         gap: 1rem;
-        align-content: stretch;
+        align-content: center;
       }
 
       main .hero-image {
         width: 600px;
       }
-      
+
+      .my-course {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 16px;
+      }
 
       footer {
         width: 100%;
@@ -115,16 +122,17 @@
       <div class="container">
         <!-- Header will appear here as a component -->
         <header-component></header-component>
-  
+
         <main>
           <!-- Interpolation -->
           <h1>{{ getFullName }}</h1>
           <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
-  
           <img :src="image" alt="vuejs-vector" class="hero-image" />
+
+          <course-list />
         </main>
       </div>
-      
+
       <!-- Footer will appear here as a component -->
       <footer-component></footer-component>
     </div>
@@ -134,7 +142,7 @@
 
     <script>
       // Membuat component pada instance Vue
-      Vue.component('header-component', {
+      Vue.component("header-component", {
         template: `
         <header>
           <img src="image/vue.png" alt="logo" width="40" />
@@ -149,23 +157,54 @@
         </header>`,
         data() {
           return {
-            menu: 'home'
-          }
+            menu: "home",
+          };
         },
       });
 
-      Vue.component('footer-component', {
+      Vue.component("course-list", {
+        template: `
+        <section class="my-course">
+            <h3>Free Course ({{ courseList.length }})</h3>
+            <input type="text" v-on:keyup.enter="handleSubmit" v-model="newCourse">
+            <h4>
+              Your Course :
+              <span style="display: block; font-weight: normal; margin: 8px 0"> {{ courseList }} </span>
+            </h4>
+  
+            <template v-if="courseList.length">
+              <ul>
+                <li style="margin-bottom: 6px" v-for="(course, index) in courseList">{{ index + 1 }} - {{ course }}</li>
+              </ul>
+            </template>
+            <li v-else>Mohon maaf saat ini kelas sedang tidak tersedia</li>
+          </section>`,
+        data() {
+          return {
+            newCourse: "",
+            courseList: [],
+          };
+        },
+        methods: {
+          handleSubmit() {
+            this.courseList.push(this.newCourse);
+            this.newCourse = "";
+          },
+        },
+      });
+
+      Vue.component("footer-component", {
         template: `
         <footer>
           <p>Copyright &copy; 2022 - Yudistira Eka Pratama</p>
         </footer>`,
-        data: function() {
+        data: function () {
           return {
             //
-          }
+          };
         },
       });
-      
+
       const vm = new Vue({
         el: "#app",
         data: {
@@ -174,6 +213,8 @@
           isGood: true,
           image: "image/vuejs-vector.png",
           menu: "home",
+          courseList: ["Larevel", "Deno", "Nuxt JS"],
+          newCourse: "Hugo",
         },
         methods: {
           changeTitleWithParams: function (title) {
@@ -182,12 +223,17 @@
           handleClickMenu: function (menu) {
             this.menu = menu;
           },
+          handleSubmit: function () {
+            let value = this.newCourse;
+            this.courseList.unshift(value);
+            this.newCourse = "";
+          },
         },
         computed: {
           getFullName: function () {
             return this.firstName + " " + this.lastName;
-          }
-        }
+          },
+        },
       });
     </script>
   </body>
