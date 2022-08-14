@@ -1,0 +1,3 @@
+# ignoring .vscode directory for workspace settings purpose
+**/.vscode/
+**/.vscode/*
