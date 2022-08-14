@@ -82,6 +82,7 @@
 
           <div>
             <h3>Free Course ({{ courseList.length }})</h3>
+            <input type="text" v-on:keyup.enter="handleSubmit">
             <h4>
               Your Course :
               <span style="display: block; font-weight: normal; margin: 8px 0"> {{ courseList }} </span>
@@ -206,6 +207,11 @@
               return x % 2 === 0;
             });
           },
+          handleSubmit: function (event) {
+            let value = event.target.value;
+            console.log(value);
+            this.courseList.unshift(value);
+          }
         },
         computed: {
           totalPayment: function () {
