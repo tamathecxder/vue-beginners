@@ -131,48 +131,32 @@
 
           <Home></Home>
 
-          <course 
-            v-bind:items="courseList" 
-            v-on:delete-course="handleDeleteCourse($event)"
-            v-on:submit-course="handleSubmitCourse($event)">
-          </course>
-
+          <course v-bind:items="courseList" v-on:delete-course="handleDeleteCourse($event)" v-on:submit-course="handleSubmitCourse($event)"> </course>
         </main>
       </div>
 
       <!-- Footer will appear here as a component -->
-      <footer-component year="2022">
-        Yudistira Eka Pratama
-      </footer-component>
+      <footer-component year="2022"> Yudistira Eka Pratama </footer-component>
     </div>
 
     <!-- Vue.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
 
-    <script>
-      // Membuat component pada instance Vue
-      Vue.component("header-component", {
-        template: `
-        <header>
-          <img src="image/vue.png" alt="logo" width="40" />
-          <nav>
-            <ul>
-              <li><a href="#" v-bind:class="{ active: menu === 'home' }" @click.prevent="handleClickMenu('home')">Home</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'services' }" @click.prevent="handleClickMenu('services')">Our Services</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'projects' }" @click.prevent="handleClickMenu('projects')">Projects</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'about' }" @click.prevent="handleClickMenu('about')">About Me</a></li>
-            </ul>
-          </nav>
-        </header>`,
-        data() {
-          return {
-            menu: "home",
-          };
-        },
-      });
+    <!-- Vue router -->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
-      Vue.component("course", {
-        props: ["items", "input"],
+    <script>
+      // Local Component
+      const Home = {
+        template: `<div>This is Home Component</div>`,
+      };
+
+      const About = {
+        template: `<div>This is About Component</div>`,
+      };
+
+      const Course = {
+        props: ["items"],
         template: `
         <section class="my-course">
             <h3>Free Course ({{ items.length }})</h3>
@@ -195,10 +179,38 @@
         data() {
           return {};
         },
-        methods: {
-          
+        methods: {},
+      };
+
+      // Defining Routes and Component
+      const routes = [
+        { path: "/", component: Home },
+        { path: "/about", component: About },
+        { path: "/course", component: Course },
+      ];
+
+      // Global Component
+      Vue.component("header-component", {
+        template: `
+        <header>
+          <img src="image/vue.png" alt="logo" width="40" />
+          <nav>
+            <ul>
+              <li><a href="#" v-bind:class="{ active: menu === 'home' }" @click.prevent="handleClickMenu('home')">Home</a></li>
+              <li><a href="#" v-bind:class="{ active: menu === 'services' }" @click.prevent="handleClickMenu('services')">Our Services</a></li>
+              <li><a href="#" v-bind:class="{ active: menu === 'projects' }" @click.prevent="handleClickMenu('projects')">Projects</a></li>
+              <li><a href="#" v-bind:class="{ active: menu === 'about' }" @click.prevent="handleClickMenu('about')">About Me</a></li>
+            </ul>
+          </nav>
+        </header>`,
+        data() {
+          return {
+            menu: "home",
+          };
         },
       });
+
+      Vue.component("course", {});
 
       Vue.component("footer-component", {
         props: ["year"],
@@ -215,11 +227,6 @@
           };
         },
       });
-
-      // local component
-      const Home = {
-        template: `<div>This is Home Component</div>`,
-      };
 
       const vm = new Vue({
         el: "#app",
