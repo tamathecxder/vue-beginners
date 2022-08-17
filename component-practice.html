@@ -129,12 +129,12 @@
           <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
           <img :src="image" alt="vuejs-vector" class="hero-image" />
 
-          <course-list />
+          <course v-bind:items="courseList" :input="newCourse" />
         </main>
       </div>
 
       <!-- Footer will appear here as a component -->
-      <footer-component></footer-component>
+      <footer-component author="John Doe"></footer-component>
     </div>
 
     <!-- Vue.js CDN -->
@@ -162,27 +162,27 @@
         },
       });
 
-      Vue.component("course-list", {
+      Vue.component("course", {
+        props: ['items', 'input'],
         template: `
         <section class="my-course">
-            <h3>Free Course ({{ courseList.length }})</h3>
-            <input type="text" v-on:keyup.enter="handleSubmit" v-model="newCourse">
+            <h3>Free Course ({{ items.length }})</h3>
+            <input type="text" v-on:keyup.enter="handleSubmit" v-model="input">
             <h4>
               Your Course :
-              <span style="display: block; font-weight: normal; margin: 8px 0"> {{ courseList }} </span>
+              <span style="display: block; font-weight: normal; margin: 8px 0"> {{ items }} </span>
             </h4>
   
-            <template v-if="courseList.length">
+            <template v-if="items.length">
               <ul>
-                <li style="margin-bottom: 6px" v-for="(course, index) in courseList">{{ index + 1 }} - {{ course }}</li>
+                <li style="margin-bottom: 6px" v-for="(course, index) in items">{{ index + 1 }} - {{ course }}</li>
               </ul>
             </template>
             <li v-else>Mohon maaf saat ini kelas sedang tidak tersedia</li>
           </section>`,
         data() {
           return {
-            newCourse: "",
-            courseList: [],
+            
           };
         },
         methods: {
@@ -194,9 +194,10 @@
       });
 
       Vue.component("footer-component", {
+        props: ['author'],
         template: `
         <footer>
-          <p>Copyright &copy; 2022 - Yudistira Eka Pratama</p>
+          <p>Copyright &copy; 2022 - {{ author }}</p>
         </footer>`,
         data: function () {
           return {
@@ -214,7 +215,8 @@
           image: "image/vuejs-vector.png",
           menu: "home",
           courseList: ["Larevel", "Deno", "Nuxt JS"],
-          newCourse: "Hugo",
+          newCourse: "",
+          courseList: ['Web Assembly', 'Python'],
         },
         methods: {
           changeTitleWithParams: function (title) {
