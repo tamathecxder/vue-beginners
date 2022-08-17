@@ -129,7 +129,9 @@
           <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
           <img :src="image" alt="vuejs-vector" class="hero-image" />
 
-          <course v-bind:items="courseList" :input="newCourse" />
+          <Home></Home>
+          
+          <course v-bind:items="courseList" :input="newCourse"></course>
         </main>
       </div>
 
@@ -206,8 +208,16 @@
         },
       });
 
+      // local component
+      const Home = {
+        template: `<div>This is Home Component</div>`,
+      }
+
       const vm = new Vue({
         el: "#app",
+        components: {
+            'Home': Home,
+        },
         data: {
           firstName: "Vue.js",
           lastName: "Framework",
