@@ -133,8 +133,8 @@
 
           <course 
             v-bind:items="courseList" 
-            :input="newCourse"
-            v-on:delete-course="handleDeleteCourse($event)">
+            v-on:delete-course="handleDeleteCourse($event)"
+            v-on:submit-course="handleSubmitCourse($event)">
           </course>
 
         </main>
@@ -174,7 +174,7 @@
         template: `
         <section class="my-course">
             <h3>Free Course ({{ items.length }})</h3>
-            <input type="text" v-on:keyup.enter="handleSubmit" v-model="input">
+            <input type="text" v-on:keyup.enter="$emit('submit-course', $event)">
             <h4>
               Your Course :
               <span style="display: block; font-weight: normal; margin: 8px 0"> {{ items }} </span>
@@ -194,10 +194,7 @@
           return {};
         },
         methods: {
-          handleSubmit() {
-            this.courseList.push(this.newCourse);
-            this.newCourse = "";
-          },
+          
         },
       });
 
@@ -230,8 +227,6 @@
           isGood: true,
           image: "image/vuejs-vector.png",
           menu: "home",
-          courseList: ["Larevel", "Deno", "Nuxt JS"],
-          newCourse: "",
           courseList: ["Web Assembly", "Python", "Golang"],
         },
         methods: {
@@ -241,10 +236,11 @@
           handleClickMenu: function (menu) {
             this.menu = menu;
           },
-          handleSubmit: function () {
-            let value = this.newCourse;
+          handleSubmitCourse: function (event) {
+            let value = event.target.value;
             this.courseList.unshift(value);
-            this.newCourse = "";
+
+            event.srcElement.value = ""; // reset
           },
           handleDeleteCourse: function (index) {
             this.courseList.splice(index, 1);
