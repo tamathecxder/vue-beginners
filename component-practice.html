@@ -121,7 +121,16 @@
     <div id="app">
       <div class="container">
         <!-- Header will appear here as a component -->
+        <nav style="margin-bottom: 20px;">
+          <ul>
+            <li><router-link to="/">Home</router-link></li>
+            <li><router-link to="/course">Our Courses</router-link></li>
+            <li><router-link to="/about">About Me</router-link></li>
+          </ul>
+        </nav>
+
         <header-component></header-component>
+        
 
         <main>
           <!-- Interpolation -->
@@ -129,9 +138,10 @@
           <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
           <img :src="image" alt="vuejs-vector" class="hero-image" />
 
-          <Home></Home>
+          <!-- <Home></Home> -->
+          <router-view v-bind:items="courseList" v-on:delete-course="handleDeleteCourse($event)" v-on:submit-course="handleSubmitCourse($event)"></router-view>
 
-          <course v-bind:items="courseList" v-on:delete-course="handleDeleteCourse($event)" v-on:submit-course="handleSubmitCourse($event)"> </course>
+          <!-- <course v-bind:items="courseList" v-on:delete-course="handleDeleteCourse($event)" v-on:submit-course="handleSubmitCourse($event)"> </course> -->
         </main>
       </div>
 
@@ -143,7 +153,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
 
     <!-- Vue router -->
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
 
     <script>
       // Local Component
@@ -155,7 +165,7 @@
         template: `<div>This is About Component</div>`,
       };
 
-      const Course = {
+      const Course = { 
         props: ["items"],
         template: `
         <section class="my-course">
@@ -177,7 +187,8 @@
             <li v-else>Mohon maaf saat ini kelas sedang tidak tersedia</li>
           </section>`,
         data() {
-          return {};
+          return {
+          };
         },
         methods: {},
       };
@@ -189,19 +200,16 @@
         { path: "/course", component: Course },
       ];
 
+      // Vue router instance
+      const router = new VueRouter({
+        routes,
+      });
+      
       // Global Component
       Vue.component("header-component", {
         template: `
         <header>
           <img src="image/vue.png" alt="logo" width="40" />
-          <nav>
-            <ul>
-              <li><a href="#" v-bind:class="{ active: menu === 'home' }" @click.prevent="handleClickMenu('home')">Home</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'services' }" @click.prevent="handleClickMenu('services')">Our Services</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'projects' }" @click.prevent="handleClickMenu('projects')">Projects</a></li>
-              <li><a href="#" v-bind:class="{ active: menu === 'about' }" @click.prevent="handleClickMenu('about')">About Me</a></li>
-            </ul>
-          </nav>
         </header>`,
         data() {
           return {
@@ -210,7 +218,7 @@
         },
       });
 
-      Vue.component("course", {});
+      // Vue.component("course", {});
 
       Vue.component("footer-component", {
         props: ["year"],
@@ -230,6 +238,7 @@
 
       const vm = new Vue({
         el: "#app",
+        router,
         components: {
           Home: Home,
         },
