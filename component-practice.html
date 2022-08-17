@@ -130,8 +130,13 @@
           <img :src="image" alt="vuejs-vector" class="hero-image" />
 
           <Home></Home>
-          
-          <course v-bind:items="courseList" :input="newCourse"></course>
+
+          <course 
+            v-bind:items="courseList" 
+            :input="newCourse"
+            v-on:delete-course="handleDeleteCourse($event)">
+          </course>
+
         </main>
       </div>
 
@@ -165,7 +170,7 @@
       });
 
       Vue.component("course", {
-        props: ['items', 'input'],
+        props: ["items", "input"],
         template: `
         <section class="my-course">
             <h3>Free Course ({{ items.length }})</h3>
@@ -177,15 +182,16 @@
   
             <template v-if="items.length">
               <ul>
-                <li style="margin-bottom: 6px" v-for="(course, index) in items">{{ index + 1 }} - {{ course }}</li>
+                <li style="margin-bottom: 6px" v-for="(course, index) in items">
+                    {{ index + 1 }} - {{ course }} |
+                    <a href="" v-on:click.prevent="$emit('delete-course', index)">Delete</a>
+                </li>
               </ul>
             </template>
             <li v-else>Mohon maaf saat ini kelas sedang tidak tersedia</li>
           </section>`,
         data() {
-          return {
-            
-          };
+          return {};
         },
         methods: {
           handleSubmit() {
@@ -196,7 +202,7 @@
       });
 
       Vue.component("footer-component", {
-        props: ['author'],
+        props: ["author"],
         template: `
         <footer>
           <p>Copyright &copy; 2022 - {{ author }}</p>
@@ -211,12 +217,12 @@
       // local component
       const Home = {
         template: `<div>This is Home Component</div>`,
-      }
+      };
 
       const vm = new Vue({
         el: "#app",
         components: {
-            'Home': Home,
+          Home: Home,
         },
         data: {
           firstName: "Vue.js",
@@ -226,7 +232,7 @@
           menu: "home",
           courseList: ["Larevel", "Deno", "Nuxt JS"],
           newCourse: "",
-          courseList: ['Web Assembly', 'Python'],
+          courseList: ["Web Assembly", "Python", "Golang"],
         },
         methods: {
           changeTitleWithParams: function (title) {
@@ -239,6 +245,9 @@
             let value = this.newCourse;
             this.courseList.unshift(value);
             this.newCourse = "";
+          },
+          handleDeleteCourse: function (index) {
+            this.courseList.splice(index, 1);
           },
         },
         computed: {
