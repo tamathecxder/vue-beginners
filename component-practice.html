@@ -141,7 +141,9 @@
       </div>
 
       <!-- Footer will appear here as a component -->
-      <footer-component author="John Doe"></footer-component>
+      <footer-component year="2022">
+        Yudistira Eka Pratama
+      </footer-component>
     </div>
 
     <!-- Vue.js CDN -->
@@ -199,10 +201,13 @@
       });
 
       Vue.component("footer-component", {
-        props: ["author"],
+        props: ["year"],
         template: `
         <footer>
-          <p>Copyright &copy; 2022 - {{ author }}</p>
+          <p>
+            Copyright &copy; {{ year }} |
+            <slot></slot>
+          </p>
         </footer>`,
         data: function () {
           return {
