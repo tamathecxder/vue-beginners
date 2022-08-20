@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Component</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" referrerpolicy="stylesheet" />
+    <style>
+      body {
+        font-family: "Quicksand", sans-serif;
+        position: relative;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 60px;
+      }
+
+      header img {
+        width: 50px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      nav {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+
+      nav ul {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+      }
+
+      nav ul li {
+        margin: 0;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        border: none;
+        background: none;
+        font-size: 1em;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.8);
+        cursor: pointer;
+      }
+
+      .active {
+        border-bottom: 3px solid rgba(0, 0, 0, 0.6);
+      }
+
+      .container {
+        width: 1200px;
+        height: auto;
+        margin: 20px 80px;
+        position: relative;
+      }
+
+      main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        align-content: center;
+      }
+
+      main .hero-image {
+        width: 600px;
+      }
+
+      .my-course {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .input-group {
+        width: 100%;
+        margin-bottom: 14px;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+      }
+
+      .mb-3 {
+        margin-bottom: 14px;
+      }
+
+      footer {
+        width: 100%;
+        padding: 40px;
+        position: static;
+        bottom: 0;
+        left: 0;
+        margin-top: 100px;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      footer p {
+        text-align: center;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.8);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Root component -->
+    <div id="app">
+      <div class="container">
+        <!-- Header will appear here as a component -->
+        <nav style="margin-bottom: 20px;">
+          <ul>
+            <li><router-link to="/">Home</router-link></li>
+            <li><router-link to="/course">Our Courses</router-link></li>
+            <li><router-link to="/about">About Me</router-link></li>
+          </ul>
+        </nav>
+
+        <header-component></header-component>
+        
+
+        <main>
+          <!-- Interpolation -->
+          <h1>{{ getFullName }}</h1>
+          <p>The Progressive JavaScript Framework. {{ isGood ? "Better than Angular" : "But it's really bad" }}</p>
+          <img :src="image" alt="vuejs-vector" class="hero-image" />
+
+          <!-- <Home></Home> -->
+          <router-view v-bind:items="courseList" v-on:delete-course="handleDeleteCourse" v-on:submit-course="handleSubmitCourse($event)"></router-view>
+
+          <!-- <course v-bind:items="courseList" v-on:delete-course="handleDeleteCourse($event)" v-on:submit-course="handleSubmitCourse($event)"> </course> -->
+        </main>
+      </div>
+
+      <!-- Footer will appear here as a component -->
+      <footer-component year="2022"> Yudistira Eka Pratama </footer-component>
+    </div>
+
+    <!-- Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+
+    <!-- Vue router -->
+    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+
+    <script>
+      Vue.config.devtools = true
+      
+      // Local Component
+      const Home = {
+        template: `<div>This is Home Component</div>`,
+      };
+
+      const About = {
+        template: `<div>This is About Component</div>`,
+      };
+
+      const Course = { 
+        props: ["items"],
+        template: `
+        <section class="my-course">
+            <h3>Free Course ({{ items.length }})</h3>
+            
+            <form v-on:submit.prevent="handleCourseSubmit">
+              <div class="input-group">
+                <label for="name">Course Title</label>
+                <input type="text" v-model="course.name" placeholder="Input course title" />
+              </div>    
+              <div class="input-group">
+                <label for="description">Course Description</label>
+                <input type="text" v-model="course.description" placeholder="Input course description" />
+              </div>    
+              <div class="mb-3">
+                <input type="file" v-model="course.image" placeholder="Input course image" />
+              </div>    
+              <button type="submit">Submit</button>
+            </form>
+            
+            <h4>
+              Your Course :
+            </h4>
+  
+            <template v-if="items.length">
+              <ul>
+                <li style="margin-bottom: 6px" v-for="(course, index) in items">
+                    {{ index + 1 }} - {{ course.name }} |
+                    <a href="" v-on:click.prevent="$emit('delete-course', course.id)">Delete</a>
+                </li>
+              </ul>
+            </template>
+            <li v-else>Mohon maaf saat ini kelas sedang tidak tersedia</li>
+          </section>`,
+        data() {
+          return {
+            course: {
+              name: "",
+              description: "",
+              image: "",
+            },
+          };
+        },
+        methods: {
+          handleCourseSubmit: function() {
+            console.log(this.course);
+          }
+        },
+      };
+
+      // Defining Routes and Component
+      const routes = [
+        { path: "/", component: Home },
+        { path: "/about", component: About },
+        { path: "/course", component: Course },
+      ];
+
+      // Vue router instance
+      const router = new VueRouter({
+        mode: 'history',
+        routes,
+      });
+      
+      // Global Component
+      Vue.component("header-component", {
+        template: `
+        <header>
+          <img src="image/vue.png" alt="logo" width="40" />
+        </header>`,
+        data() {
+          return {
+            menu: "home",
+          };
+        },
+      });
+
+      // Vue.component("course", {});
+
+      Vue.component("footer-component", {
+        props: ["year"],
+        template: `
+        <footer>
+          <p>
+            Copyright &copy; {{ year }} |
+            <slot></slot>
+          </p>
+        </footer>`,
+        data: function () {
+          return {
+            //
+          };
+        },
+      });
+
+      // generate 4 digits random number
+      function randomNumber() {
+        return Math.floor(Math.random() * 10000);
+      }
+
+      const vm = new Vue({
+        el: "#app",
+        router,
+        components: {
+          Home: Home,
+        },
+        data: {
+          firstName: "Vue.js",
+          lastName: "Framework",
+          isGood: true,
+          image: "image/vuejs-vector.png",
+          menu: "home",
+          courseList: [
+            {
+              id: randomNumber(),
+              name: "VIte.js",
+              description: "Vite.js is a next generation front-end tools based on Vue.js",
+              image: "image/course-list/vite.png",
+            },
+            {
+              id: randomNumber(),
+              name: "Vue.js",
+              description: "Vue.js is a progressive framework for building user interfaces",
+              image: "image/course-list/vue.png",
+            },
+            {
+              id: randomNumber(),
+              name: "Vuex",
+              description: "Vuex is a state management pattern + library for Vue.js applications",
+              image: "image/course-list/vuex.png",
+            },
+            {
+              id: randomNumber(),
+              name: "Vue Router",
+              description: "Vue Router is a routing library for Vue.js applications",
+              image: "image/course-list/vue-router.png",
+            },
+          ],
+        },
+        methods: {
+          changeTitleWithParams: function (title) {
+            this.title = title;
+          },
+          handleClickMenu: function (menu) {
+            this.menu = menu;
+          },
+          handleSubmitCourse: function (event) {
+            let value = event.target.value;
+            this.courseList.unshift(value);
+
+            event.srcElement.value = ""; // reset
+          },
+          handleDeleteCourse: function (id) {
+            this.courseList = this.courseList.filter((course) => course.id !== id);
+          },
+        },
+        computed: {
+          getFullName: function () {
+            return this.firstName + " " + this.lastName;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
