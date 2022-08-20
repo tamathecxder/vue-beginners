@@ -151,7 +151,7 @@
           <img :src="image" alt="vuejs-vector" class="hero-image" />
 
           <!-- <Home></Home> -->
-          <router-view v-bind:items="courseList" v-on:delete-course="handleDeleteCourse" v-on:submit-course="handleSubmitCourse($event)"></router-view>
+          <router-view v-bind:items="courseList" v-on:delete-course="handleDeleteCourse" v-on:submit-course="handleSubmitCourse"></router-view>
 
           <!-- <course v-bind:items="courseList" v-on:delete-course="handleDeleteCourse($event)" v-on:submit-course="handleSubmitCourse($event)"> </course> -->
         </main>
@@ -167,9 +167,12 @@
     <!-- Vue router -->
     <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
 
+    <!-- UUID -->
+    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+
     <script>
       Vue.config.devtools = true
-      
+
       // Local Component
       const Home = {
         template: `<div>This is Home Component</div>`,
@@ -195,7 +198,7 @@
                 <input type="text" v-model="course.description" placeholder="Input course description" />
               </div>    
               <div class="mb-3">
-                <input type="file" v-model="course.image" placeholder="Input course image" />
+                <input type="file" placeholder="Input course image" />
               </div>    
               <button type="submit">Submit</button>
             </form>
@@ -225,7 +228,18 @@
         },
         methods: {
           handleCourseSubmit: function() {
-            console.log(this.course);
+            const data = {
+              id: uuidv4(),
+              name: this.course.name,
+              description: this.course.description,
+              image: null,
+            }
+            
+            this.$emit("submit-course", data);
+            
+            // reset form
+            this.course.name = "";
+            this.course.description = "";
           }
         },
       };
@@ -325,11 +339,8 @@
           handleClickMenu: function (menu) {
             this.menu = menu;
           },
-          handleSubmitCourse: function (event) {
-            let value = event.target.value;
-            this.courseList.unshift(value);
-
-            event.srcElement.value = ""; // reset
+          handleSubmitCourse: function (data) {
+            this.courseList.unshift(data);
           },
           handleDeleteCourse: function (id) {
             this.courseList = this.courseList.filter((course) => course.id !== id);
