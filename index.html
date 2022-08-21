@@ -198,7 +198,8 @@
                 <input type="text" v-model="course.description" placeholder="Input course description" />
               </div>    
               <div class="mb-3">
-                <input type="file" placeholder="Input course image" />
+                <img :src="previewImage" v-if="previewImage" width="200" class="mb-3" style="display: block;" />
+                <input type="file" v-on:change="handleImageUpload" placeholder="Input course image" />
               </div>    
               <button type="submit">Submit</button>
             </form>
@@ -224,6 +225,7 @@
               description: "",
               image: "",
             },
+            previewImage: "",
           };
         },
         methods: {
@@ -240,6 +242,11 @@
             // reset form
             this.course.name = "";
             this.course.description = "";
+          },
+          handleImageUpload: function(event) {
+            const imgName = event.target.files[0].name;
+            this.course.image = imgName;
+            this.previewImage = URL.createObjectURL(event.target.files[0]);
           }
         },
       };
