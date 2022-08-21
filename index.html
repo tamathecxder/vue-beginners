@@ -107,8 +107,32 @@
         justify-content: space-between;
       }
 
+      .mb-1 {
+        margin-bottom:6px;
+      }
+
+      .mb-2 {
+        margin-bottom: 10px;
+      }
+      
       .mb-3 {
         margin-bottom: 14px;
+      }
+
+      .btn-delete {
+        border-radius: 4px;
+        font-size: 14px;
+        border: none;
+        padding: 6px 16px;
+        text-decoration: none;
+        color: #fff;
+        background-color: rgb(222, 48, 48);
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .btn-delete:hover {
+        opacity: 0.9;
       }
 
       footer {
@@ -142,7 +166,6 @@
         </nav>
 
         <header-component></header-component>
-        
 
         <main>
           <!-- Interpolation -->
@@ -152,8 +175,6 @@
 
           <!-- <Home></Home> -->
           <router-view v-bind:items="courseList" v-on:delete-course="handleDeleteCourse" v-on:submit-course="handleSubmitCourse"></router-view>
-
-          <!-- <course v-bind:items="courseList" v-on:delete-course="handleDeleteCourse($event)" v-on:submit-course="handleSubmitCourse($event)"> </course> -->
         </main>
       </div>
 
@@ -199,7 +220,7 @@
               </div>    
               <div class="mb-3">
                 <img :src="previewImage" v-if="previewImage" width="200" class="mb-3" style="display: block;" />
-                <input type="file" v-on:change="handleImageUpload" placeholder="Input course image" />
+                <input type="file" ref="previewImage" v-on:change="handleImageUpload" placeholder="Input course image" />
               </div>    
               <button type="submit">Submit</button>
             </form>
@@ -210,9 +231,12 @@
   
             <template v-if="items.length">
               <ul>
-                <li style="margin-bottom: 6px" v-for="(course, index) in items">
-                    {{ index + 1 }} - {{ course.name }} |
-                    <a href="" v-on:click.prevent="$emit('delete-course', course.id)">Delete</a>
+                <li style="margin-bottom: 16px" v-for="(course, index) in items">
+                    <p class="mb-3">
+                      <span>{{ index + 1 }} - {{ course.name }}</span> | 
+                      <a class="btn-delete" href="" v-on:click.prevent="$emit('delete-course', course.id)">Delete</a>
+                    </p>
+                    <img :src="'image/upload/' + course.image" width="400" style="display: block;" />
                 </li>
               </ul>
             </template>
@@ -234,7 +258,7 @@
               id: uuidv4(),
               name: this.course.name,
               description: this.course.description,
-              image: null,
+              image: this.course.image,
             }
             
             this.$emit("submit-course", data);
@@ -242,6 +266,9 @@
             // reset form
             this.course.name = "";
             this.course.description = "";
+            this.course.image = "",
+            this.previewImage = "",
+            this.$refs.previewImage.value = "";
           },
           handleImageUpload: function(event) {
             const imgName = event.target.files[0].name;
@@ -317,25 +344,25 @@
               id: randomNumber(),
               name: "VIte.js",
               description: "Vite.js is a next generation front-end tools based on Vue.js",
-              image: "image/course-list/vite.png",
+              image: "vitejs.png",
             },
             {
               id: randomNumber(),
               name: "Vue.js",
               description: "Vue.js is a progressive framework for building user interfaces",
-              image: "image/course-list/vue.png",
+              image: "vuejs.png",
             },
             {
               id: randomNumber(),
               name: "Vuex",
               description: "Vuex is a state management pattern + library for Vue.js applications",
-              image: "image/course-list/vuex.png",
+              image: "vuex.jpeg",
             },
             {
               id: randomNumber(),
               name: "Vue Router",
               description: "Vue Router is a routing library for Vue.js applications",
-              image: "image/course-list/vue-router.png",
+              image: "vue-router.jpeg",
             },
           ],
         },
